@@ -8,6 +8,7 @@
 * License:																									*
 *																											*
 * Copyright 2015 Abhishek N. Kulkarni (abhi.bp1993@gmail.com)												*
+*																											*
 * This program is free software: you can redistribute it and/or modify										*
 * it under the terms of the GNU General Public License as published by										*
 * the Free Software Foundation, either version 3 of the License, or											*
@@ -22,12 +23,30 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.			                        	*
  ***********************************************************************************************************/
 
-#ifndef TIMEDAUTOMATA_H
-#define TIMEDAUTOMATA_H
+#ifndef TIMEDAUTOMATA1_H
+#define TIMEDAUTOMATA1_H
+
+        // Uncomment following block if Logs are to be enabled.
+        
+//        #include "Log.h"
+//        
+//        #define W001    1    // unacceptable tickTime_us
+//        #define W002    2    // more than MAX_CALLBACK callbacks
+//        #define W003    3    // overwritten mySM
+//        #define W004    4    // addition after MAX_CHILD_STATE
+//        #define W005    5    // soft-deadline
+//        
+//        #define E001    1    // hard deadline
+
+        
+
+//==========================================================================================================
+// DO NOT EDIT BELOW THIS.
+
 
 	#include "Arduino.h"
 	#include <avr/interrupt.h>
-
+        
 	#define  MAX_CALLBACK  10        // Maximum callbacks permitted (keep it small for smaller tick-times)
 	#define MAX_CHILD_STATE 5		 // Maximum child states per SM
 	

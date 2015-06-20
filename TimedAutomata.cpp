@@ -14,6 +14,7 @@
 * License:																									*
 *																											*
 * Copyright 2015 Abhishek N. Kulkarni (abhi.bp1993@gmail.com)												*
+*																											*
 * This program is free software: you can redistribute it and/or modify										*
 * it under the terms of the GNU General Public License as published by										*
 * the Free Software Foundation, either version 3 of the License, or											*
@@ -28,7 +29,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.			                        	*
  ***********************************************************************************************************/
 
-#include "TimedAutomata.h"
+#include "TimedAutomata1.h"
 
 SM* mySM = NULL;
 
@@ -111,7 +112,9 @@ void TickTimer::configure(unsigned long tickTime_us){
     default:
       TCCR2B = 0;                          // Default: Timer is off
       tickTime = 0;
-      // Issue warning
+      #ifdef LOG_H
+        warn(W001);
+      #endif
       break;
   }
 
@@ -139,6 +142,9 @@ Error: (issued if <Log.h> is defined)
 void TickTimer::registerCallback(callback fcn){
   if (_callback_array_head >= MAX_CALLBACK){
     // Ignore (Do not add callback. Issue warning)
+    #ifdef LOG_H
+        warn(W002);
+    #endif
   }
   else{
     arrCallback[TickTimer::_callback_array_head] = fcn;      // Add function pointer to list of callbacks
@@ -371,7 +377,9 @@ Error: (issued if <Log.h> is defined)
 ******************************************************************/
 void SM::registerToTimer(){
 	if (mySM != NULL) {
-		//Warn
+		#ifdef LOG_H
+                  warn(W003);
+                #endif
 	}
 	mySM = this;
 }
@@ -395,7 +403,9 @@ Error: (issued if <Log.h> is defined)
 ******************************************************************/
 void SM::addState(State* s){
   if (_childState_head >= MAX_CHILD_STATE){
-    // WARN
+    #ifdef LOG_H
+        warn(W004);
+    #endif
   }
   else{
     childStates[_childState_head] = s;
@@ -434,8 +444,21 @@ void SM::tick(){
     
     if (currState != NULL){
       if ((*currState).inProgress){
+        
         int8_t retVal = (*currState).tick();
+        
         // Validations on retVal...
+        if (retVal == 1){
+          #ifdef LOG_H
+            warn(W005);
+          #endif
+        }
+        else if (retVal == -1){
+          #ifdef LOG_H
+            error(E001);
+          #endif
+        }
+        
         return; // 0;
       }
       else{
@@ -495,6 +518,5 @@ void SM::step(){
     isTrnActive = false;
   }
 }
-
 
 
