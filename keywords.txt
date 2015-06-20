@@ -1,0 +1,13 @@
+SM	KEYWORD1
+
+State	KEYWORD1
+
+TickTimer	KEYWORD1
+
+reset	KEYWORD2
+registerToTimer	KEYWORD2
+setStartState	KEYWORD2
+addState	KEYWORD2
+configure	KEYWORD2
+startTicking	KEYWORD2
+stopTicking	KEYWORD2
